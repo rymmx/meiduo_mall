@@ -29,7 +29,12 @@ def indexabc(request):
     :param request: 接收到请求  HttpRequest/WsgiRequest
     :return: HttpResponse() 响应对象 不能直接返回字符串
     """
+    # 不能有namespace,先反向解析出视图路径,通过路径重定向,reverse等价于flask中的url_for
+    # print(reverse(index))
+    # print("-------")
+    # return redirect(reverse(index))
 
+    # 次方法必须要在总路由中有namespace="users"
     print(reverse('users:index'))
     print("-------")
     return redirect(reverse('users:index'))

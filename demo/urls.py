@@ -28,6 +28,10 @@ urlpatterns = [
     # url(r'^users/index/$', views.index),
 
     # 只在总路由中包含子应用的所有路由,将子应用的所有路由信息全部写在子应用中
+    # url(r'^', include('users.urls'),
     url(r'^', include('users.urls', namespace='users')),
+
+    # 演示请求和响应子应用的所有路由
+    url(r'^', include('request_response.urls', namespace='request_response')),
 
 ]

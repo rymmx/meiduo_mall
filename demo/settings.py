@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'users.apps.UsersConfig'  # 注册子应用
+    'users.apps.UsersConfig',  # 注册子应用
+    'request_response.apps.RequestResponseConfig',  # 演示请求和响应子应用
 ]
 
 # 中间件类似于请求勾子(监听请求和响应的中间过程)
