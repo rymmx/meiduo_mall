@@ -47,6 +47,9 @@ INSTALLED_APPS = [
 
     'users.apps.UsersConfig',  # 注册子应用
     'request_response.apps.RequestResponseConfig',  # 演示请求和响应子应用
+    'booktest.apps.BooktestConfig',  # 注册booktest应用
+    # 如果视图中只有视图路由这些业务逻辑,子应用可以注册,也可以不注册
+    # 如果子应用中使用了模型并且要做迁移建表,如果子应用中应用了模板,一般也要注册
 ]
 
 # 中间件类似于请求勾子(监听请求和响应的中间过程)
@@ -91,10 +94,21 @@ WSGI_APPLICATION = 'demo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 # 数据库的配置
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',  # 数据库后端引擎
+        'HOST': '127.0.0.1',  # 数据库主机
+        'PORT': '3306',  # 数据库端口
+        'USER': 'root',  # 用户名
+        'PASSWORD': '123456',  # 密码
+        'NAME': 'django_demo_23'  # 数据库名字
     }
 }
 
