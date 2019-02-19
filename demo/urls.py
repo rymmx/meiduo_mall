@@ -34,4 +34,7 @@ urlpatterns = [
     # 演示请求和响应子应用的所有路由
     url(r'^', include('request_response.urls', namespace='request_response')),
 
+    # 类视图
+    url(r'^', include('classview.urls')),
+
 ]
