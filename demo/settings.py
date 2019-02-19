@@ -58,6 +58,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # 中间件的执行原理,请求是自上而下,响应是自下而上
+    'users.middleware.my_middleware',  # 添加自定义中间件
+    'users.middleware.my_middleware2',  # 添加自定义中间件
 ]
 
 # 工程路由入口
