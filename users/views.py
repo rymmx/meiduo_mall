@@ -38,3 +38,41 @@ def indexabc(request):
     print(reverse('users:index'))
     print("-------")
     return redirect(reverse('users:index'))
+
+
+#########################################################
+# 第二天的
+#########################################################
+
+
+def cookie_demo(request):
+    """演示cookie缓存数据的读写"""
+
+    # 创建response对象
+    response = HttpResponse('cookie_demo')
+
+    # 写入缓存数据到浏览器的cookie
+    response.set_cookie('name', 'rymmx', max_age=3600)
+
+    # 读取cookie
+    name = request.COOKIES.get('name')
+    print(name)
+
+    return response
+
+
+def session_demo(request):
+    """演示操作session缓存数据的读写"""
+
+    # 将缓存数据写入到session
+    request.session["name"] = "rymmx"
+    # 上面的代码会将缓存数据存储到redis
+    # 在返回响应时生成一个sessionid写入到cookie,将seesionid存储在浏览器中
+
+    # 读取seesion中的缓存数据
+    print(request.session.get("name"))
+    # 会先从request.COOKIES中读取原先写入的sessionid
+    # 在使用sessionid读取redis中存储的那条缓存记录
+    # 最后使用指定的key,get出存储的session值
+
+    return HttpResponse("session_demo")

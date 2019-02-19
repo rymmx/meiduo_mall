@@ -7,7 +7,8 @@ urlpatterns = [
     # url(url路径正则, 函数视图名)
     # 演示路由匹配查找视图
     # url(r'^index/$', views.index),
-    url(r'^users/index/$', views.index, name='index'),
+    # url(r'^users/index/$', views.index, name='index'),
+    url(r'^$', views.index, name='index'),
 
     # 演示路由匹配顺序: 自上而下一个一个去匹配
     # url(r'^users/say', views.say),
@@ -22,4 +23,15 @@ urlpatterns = [
 
     # 把路由全部写在子应用中
     url(r'^users/indexabc/$', views.indexabc),
+
+    #############################
+    # 第二天的
+    #############################
+
+    # 演示cookie缓存数据的读写
+    url(r'^cookie_demo/$', views.cookie_demo),
+
+    # 演示操作session缓存数据的读写
+    url(r'^session_demo/$', views.session_demo),
+
 ]

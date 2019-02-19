@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
+    'django.contrib.sessions',  # 默认开启了session
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
@@ -52,7 +52,7 @@ INSTALLED_APPS = [
 # 中间件类似于请求勾子(监听请求和响应的中间过程)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',  # 默认开启了session
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -143,3 +143,17 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static_files/good'),
 ]
 # print("静态文件入口: ",STATICFILES_DIRS)
+
+
+# 配置session缓存的后端
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
