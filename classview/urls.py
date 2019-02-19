@@ -14,4 +14,6 @@ urlpatterns = [
     # django自带装饰器测试
     url(r'^TestView/$', views.TestView.as_view()),
 
+    url(r'^templates_demo/$', views.templates_demo),
+
 ]

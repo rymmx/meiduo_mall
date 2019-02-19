@@ -56,3 +56,12 @@ class TestView(View):
         """POST请求业务逻辑"""
         return HttpResponse('post')
 
+
+def templates_demo(request):
+    context = {
+        "name": "rymmx",
+        "alist": [1,2,3],
+        "adict": {"name":"lxm","age":88}
+    }
+    return render(request,'index.html',context=context)
+

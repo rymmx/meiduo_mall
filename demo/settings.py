@@ -67,11 +67,11 @@ MIDDLEWARE = [
 # 工程路由入口
 ROOT_URLCONF = 'demo.urls'
 
-# 项目模板配置项目
+# 项目模板配置项目  /home/python/Desktop/meiduo_mall/demo/templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
