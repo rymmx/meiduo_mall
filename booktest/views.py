@@ -24,6 +24,18 @@ book3 = BookInfo.objects.create(
 
 hero = HeroInfo(
     hname="孙悟空",
-    # hbook=book3,  # 外键的关联赋值
+    # hbook=book3,  # 外键的关联赋值,和下一句等价
     hbook_id=book3.id,
 )
+
+
+"""以下是基本查询"""
+# get/ count /all
+
+BookInfo.objects.get(id=1)
+BookInfo.objects.get(id=10)
+BookInfo.objects.get(btitle='天龙八部')
+
+BookInfo.objects.all()
+BookInfo.objects.count()
+
