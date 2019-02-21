@@ -56,3 +56,9 @@ class HeroInfoAdmin(admin.ModelAdmin):
 # 注册模型到站点
 admin.site.register(BookInfo, BookInfoAdmin) # 第一种写法
 # admin.site.register(HeroInfo, HeroInfoAdmin)
+
+
+# 以下三行代码对于整个站点只用配置一次
+admin.site.site_header = '书城'
+admin.site.site_title = '书城MIS'
+admin.site.index_title = '欢迎使用书城MIS'
