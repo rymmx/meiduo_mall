@@ -37,4 +37,7 @@ urlpatterns = [
     # 类视图
     url(r'^', include('classview.urls')),
 
+    # 图书英雄类路由
+    url(r'^', include('booktest.urls')),
+
 ]
