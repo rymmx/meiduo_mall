@@ -82,8 +82,8 @@ BookInfo.objects.filter(bread__gt=F('bcomment')*2)
 BookInfo.objects.filter(id__lte=3,bread__gt=30)
 
 # Q对象可以使用&、|连接，&表示逻辑与，|表示逻辑或。
-# 查询阅读量大于20，或编号小于3的图书，只能使用Q对象实现
-BookInfo.objects.filter(Q(bread__gt=20) | Q(pk__lt=3))
+# 查询阅读量不大于20，或编号小于3的图书，只能使用Q对象实现
+BookInfo.objects.filter(~Q(bread__gt=20) | Q(pk__lt=3))
 
 # 查询阅读量大于20且编号小于3的图书,等价于BookInfo.objects.filter(bread__gt=20, pk__lt=3)
 BookInfo.objects.filter(Q(bread__gt=20) & Q(pk__lt=3))
@@ -99,3 +99,22 @@ BookInfo.objects.all().order_by('-bread')  # 降序序
 
 
 # 关联查询
+hero1 = HeroInfo.objects.get(hname="令狐冲")
+hero1.hbook
+
+"""
+在定义模型的时候,如果模型俩个有外键关联,一般把外键定义子多的一方
+hbook 会隐式生成一个小写_set属性
+"""
+book1 = BookInfo.objects.get(id=1)
+book1.heroinfo_set  # <django.db.models.fields.related_descriptors.create_reverse_many_to_one_manager.<locals>.RelatedManager object at 0x7f1300d96a58>
+book1.heroinfo_set.all()
+book1.heroinfo_set.get(hname="黄蓉")
+
+"""关联过滤查询"""
+# 一查多
+HeroInfo.objects.filter(hbook_id=2)  # <QuerySet [<HeroInfo: 乔峰>, <HeroInfo: 段誉>, <HeroInfo: 王语嫣>]>
+
+# 多查一
+BookInfo.objects.filter(heroinfo__hname="孙悟空")  # <QuerySet [<HeroInfo: 乔峰>, <HeroInfo: 段誉>, <HeroInfo: 王语嫣>]>
+
