@@ -175,8 +175,9 @@ CACHES = {
         }
     }
 }
+# 把session后端引擎指定为内存缓存
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 
 # 指定上传文件目录
-MEDIA_ROOT=os.path.join(BASE_DIR,"static_files/media")
+MEDIA_ROOT = os.path.join(BASE_DIR,"static_files/media")
