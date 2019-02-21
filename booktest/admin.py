@@ -31,7 +31,7 @@ class BookInfoAdmin(admin.ModelAdmin):
     # fields = ["btitle", 'bpub_date', 'is_delete']  # 编辑页面可以进行编辑字段默认模型中的字段可以编辑
 
     fieldsets = [
-        ["基础组", {'fields': ['btitle', "bpub_date"]}],
+        ["基础组", {'fields': ['btitle', "bpub_date","image"]}],
         ["高级组", {'fields': ["bread",'bcomment','is_delete'],
                  'classes': ['collapse']
                  },]

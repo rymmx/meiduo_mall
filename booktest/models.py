@@ -40,6 +40,10 @@ class HeroInfo(models.Model):
     hbook = models.ForeignKey(BookInfo, on_delete=models.CASCADE, verbose_name='图书')  # 外键
     is_delete = models.BooleanField(default=False, verbose_name='逻辑删除')
 
+    # 注意点,如果模型已经迁移建表并且表中已经有数据,那么新增的字段,必须给默认值或可以为空,不然迁移表会报错
+    # upload_to 指定上传到media_root配置项的目录中的 booktest 目录
+    image = models.ImageField(upload_to='booktest', verbose_name='图片', null=True)
+
     class Meta:
         db_table = 'tb_heros'
         verbose_name = '英雄'
