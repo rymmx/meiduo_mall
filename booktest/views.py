@@ -143,4 +143,20 @@ hero.delete()
 HeroInfo.objects.filter(id=34).delete()
 
 
+# 查询集 QuerySet
+# 两大特性
+# 1.惰性执行  创建查询集不会访问数据库，直到调用数据时，才会访问数据库，调用数据的情况包括迭代、序列化、与if合用
+qs=HeroInfo.objects.filter(id=22)
+qs
 
+# 2.缓存  使用同一个查询集，第一次使用时会发生数据库的查询，然后Django会把结果缓存下来，再次使用这个查询集时会使用缓存的数据，减少了数据库的查询次数。
+
+# 无缓存,每次都进行数据库查询
+from booktest.models import BookInfo
+[book.id for book in BookInfo.objects.all()]
+[book.id for book in BookInfo.objects.all()]
+
+# 有缓存,不进行数据库查询
+qs=BookInfo.objects.all()
+[book.id for book in qs]
+[book.id for book in qs]
