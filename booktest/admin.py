@@ -1,9 +1,17 @@
 from django.contrib import admin
+from django.contrib.admin import TabularInline,StackedInline
 
 from .models import BookInfo,HeroInfo
 
 # Register your models here.
 # 想要自定义admin站点管理界面需要定义模型站点管理类
+
+
+class HeroInfoInline(StackedInline):  # 以块展示
+# class HeroInfoInline(TabularInline):  # 以表展示
+    model = HeroInfo
+    extra = 1
+    pass
 
 
 class BookInfoAdmin(admin.ModelAdmin):
@@ -28,6 +36,8 @@ class BookInfoAdmin(admin.ModelAdmin):
                  'classes': ['collapse']
                  },]
     ]
+
+    inlines = [HeroInfoInline]  # 编辑页面关联展示的页面
     pass
 
 
