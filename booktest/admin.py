@@ -1,9 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
-
 from .models import BookInfo,HeroInfo
 
+# Register your models here.
 
+
+# 注册模型到站点
 admin.site.register(BookInfo)
 admin.site.register(HeroInfo)
