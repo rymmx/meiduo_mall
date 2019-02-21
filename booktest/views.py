@@ -115,6 +115,32 @@ book1.heroinfo_set.get(hname="黄蓉")
 # 一查多
 HeroInfo.objects.filter(hbook_id=2)  # <QuerySet [<HeroInfo: 乔峰>, <HeroInfo: 段誉>, <HeroInfo: 王语嫣>]>
 
+# 对应的模型类对象.多对应的模型类名小写_set
+b = BookInfo.objects.get(id=1)
+b.heroinfo_set.all()
+
+
 # 多查一
 BookInfo.objects.filter(heroinfo__hname="孙悟空")  # <QuerySet [<HeroInfo: 乔峰>, <HeroInfo: 段誉>, <HeroInfo: 王语嫣>]>
+
+# 多对应的模型类对象.多对应的模型类中的关系类属性名
+h = HeroInfo.objects.get(id=23)
+h.hbook
+
+
+# 修改
+hero = HeroInfo.objects.get(hname='猪八戒')
+hero.hname = '猪悟能'
+hero.save()
+
+# 使用模型类.objects.filter().update()，会返回受影响的行数
+HeroInfo.objects.filter(hname='沙僧').update(hname='沙僧001')
+
+# 模型类对象delete
+hero = HeroInfo.objects.get(id=33)
+hero.delete()
+
+HeroInfo.objects.filter(id=34).delete()
+
+
 
