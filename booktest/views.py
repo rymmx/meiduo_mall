@@ -19,7 +19,9 @@ class BookListVIew(View):
     """
     def get(self, request):
         """
-        查询所有图书
+        1.查询所有图书模型对象
+        2.把模型转换位JSON字典
+        3.响应
         路由：GET /books/
         """
         queryset = BookInfo.objects.all()
@@ -37,6 +39,11 @@ class BookListVIew(View):
 
     def post(self, request):
         """POST  /books/  新增一条记录"""
+        # 1.获取请求中的JSON数据
+        # 2.把bytes类型的数据转换为JSON字典
+        # 前端传入的数据不能直接使用,都必须经过校验
+        # 3.创建模型对象,赋值并存储到数据库
+        # 4.响应
 
         json_bytes = request.body
         json_str = json_bytes.decode()
@@ -66,6 +73,9 @@ class BookDetailView(View):
 
     def get(self, request, pk):
         """GET  /books/<pk>  提供指定id的记录"""
+        # 1.查询出pk所指定的那个数据
+        # 2.把模型对象转换为字典
+        # 3.响应
         try:
             book = BookInfo.objects.get(pk=pk)
         except BookInfo.DoesNotExist:
