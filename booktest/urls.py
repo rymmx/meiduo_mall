@@ -10,6 +10,8 @@ urlpatterns = [
 
 # 创建路由器
 router = DefaultRouter()
+# 将视图注册到路由
 router.register(r'books', views.BookInfoViewSet)
+# 视图集路由添加到urlpatterns
 urlpatterns += router.urls
 # urlpatterns = urlpatterns + router.urls

@@ -4,9 +4,19 @@ from django.views import View
 from rest_framework.viewsets import ModelViewSet
 from booktest.serializers import BookInfoModelSerializer
 from booktest.models import BookInfo, HeroInfo
-# from booktest.serializers import BookInfoSerializer,HeroInfoSerializer
+from booktest.serializers import BookInfoSerializer,HeroInfoSerializer
 
 # Create your views here.
+
+"""
+GET     /books/         提供所有记录
+POST    /books/         新增一条记录
+GET     /books/<pk>/    提供指定id的记录
+PUT     /books/<pk>/    修改指定id的记录
+DELETE  /books/<pk>/    删除指定id的记录
+
+响应数据    JSON
+"""
 
 
 class BookListVIew(View):
@@ -47,11 +57,13 @@ class BookListVIew(View):
 
         # 此处需要校验先省略
 
+        #概念:  将其他格式（字典、JSON、XML等）转换为程序中的数据，例例如将JSON字符串串转换为Django中的模型类对象，这个过程我们称为反序列列化
         book = BookInfo.objects.create(
             btitle=book_dict.get('btitle'),
             bpub_date=book_dict.get('bpub_date')
         )
 
+        #  将程序中的⼀一个数据结构类型转换为其他格式（字典、JSON、XML等），例例如将Django中的模型类对象转换为JSON字符串串，这个转换过程我们称为序列列化。
         json_dict = {
             'id': book.id,
             'btitle': book.btitle,
@@ -62,6 +74,9 @@ class BookListVIew(View):
         }
 
         return JsonResponse(json_dict, status=201)
+        # 在开发REST API接⼝口时，我们在视图中需要做的最核⼼心的事是：
+        # • 将数据库数据序列列化为前端所需要的格式，并返回；
+        # • 将前端发送的数据反序列列化为模型类对象，并保存到数据库中。
 
 
 class BookDetailView(View):
@@ -141,34 +156,42 @@ class BookInfoViewSet(ModelViewSet):
     # 指定查询
     queryset = BookInfo.objects.all()
 
+
+# book = BookInfo.objects.get(id=1)
+# # 创建序列化器进行序列化器
+# # 给instance参数传入实参  可以传模型/查询集(many=True)/字典
+# serializer = BookInfoSerializer(instance=book)
+# # serializer = BookInfoSerializer(book)  # 同上一句
+# serializer.data
 #
-# # def demo():
-# #     book = BookInfo.objects.get(id=1)
-# #     serializer = BookInfoSerializer(instance=book)
-# #     serializer.data
 #
 # #序列化查询集QuerySet
 # book_qs = BookInfo.objects.all()
 # serializer = BookInfoSerializer(book_qs, many=True)
 # serializer.data
 #
-# # 有BUG
-# # book_qs = BookInfo.objects.all()
-# # serializer = BookInfoSerializer({"books":book_qs})
-# # serializer.books
-#
+# # 上面的另一种写法
+# book_qs = BookInfo.objects.all()
+# serializer = BookInfoSerializer({"books":book_qs})  # 有BUG,不要这样写
+# serializer.books
 #
 #
 # # 关联序列化
-# hero = HeroInfo.objects.all()
+# hero = HeroInfo.objects.get(id=1)
+# serializer = HeroInfoSerializer(hero)
+# serializer.data
 #
 #
 # # 反序列化演练
+# from booktest.serializers import BookInfoSerializer
 # data = {
 #     "btitle": "三国Django",
+#     'bpub_date': '1991-11-11',
 #     "bread": 20,
 #     "bcomment": 19,
 # }
 # serializer = BookInfoSerializer(data=data)
 # serializer.is_valid(raise_exception=True)
-#
+# a = serializer.save()  # 将校验后的数据修改到数据库
+#     # 当序列化器调用save方法 会去执行序列化器中的create方法或update方法
+#     # serializer.data
