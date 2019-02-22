@@ -9,8 +9,10 @@ from django.shortcuts import render
 from datetime import datetime
 
 from django.views import View
+from rest_framework.viewsets import ModelViewSet
 
 from booktest.models import BookInfo
+from booktest.serializers import BookInfoSerializer
 
 
 class BookListVIew(View):
@@ -94,6 +96,11 @@ class BookDetailView(View):
 
     def put(self, request, pk):
         """PUT  /books/<pk>  修改指定id的记录"""
+        # 0.获取前段传入的数据(校验)
+        # 1.获取要修改的模型对象
+        # 2.修改模型属性值
+        # 3. save()
+
         json_bytes = request.body
         json_str = json_bytes.decode()
         book_dict = json.loads(json_str)
@@ -131,3 +138,15 @@ class BookDetailView(View):
 
         return HttpResponse(status=204)
 
+
+class BookInfoViewSet(ModelViewSet):
+    """定义视图集"""
+
+    queryset = BookInfo.objects.all()
+    serializer_class = BookInfoSerializer
+
+
+def demo():
+    book = BookInfo.objects.get(id=1)
+    serializer = BookInfoSerializer(instance=book)
+    serializer.data
