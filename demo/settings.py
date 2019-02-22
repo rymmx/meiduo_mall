@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 添加rest_framework应用
+    'rest_framework',
+
     'users.apps.UsersConfig',  # 注册子应用
     'request_response.apps.RequestResponseConfig',  # 演示请求和响应子应用
     'booktest.apps.BooktestConfig',  # 注册booktest应用

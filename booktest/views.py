@@ -13,7 +13,7 @@ from django.views import View
 from booktest.models import BookInfo
 
 
-class BooksAPIVIew(View):
+class BookListVIew(View):
     """
     查询所有图书、增加图书
     """
@@ -61,7 +61,7 @@ class BooksAPIVIew(View):
         return JsonResponse(json_dict, status=201)
 
 
-class BookAPIView(View):
+class BookDetailView(View):
     """查询指定图书, 修改指定图书, 删除指定图书"""
 
     def get(self, request, pk):
