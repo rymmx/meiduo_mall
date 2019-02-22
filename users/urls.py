@@ -8,7 +8,7 @@ urlpatterns = [
     # 演示路由匹配查找视图
     # url(r'^index/$', views.index),
     # url(r'^users/index/$', views.index, name='index'),
-    url(r'^$', views.index, name='index'),
+    url(r'^index/$', views.index, name='index'),
 
     # 演示路由匹配顺序: 自上而下一个一个去匹配
     # url(r'^users/say', views.say),
