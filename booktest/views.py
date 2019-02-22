@@ -1,18 +1,12 @@
 import json
-
 from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render
-
-# Create your views here.
-
-
-from datetime import datetime
-
 from django.views import View
 from rest_framework.viewsets import ModelViewSet
+from booktest.serializers import BookInfoModelSerializer
+from booktest.models import BookInfo, HeroInfo
+# from booktest.serializers import BookInfoSerializer,HeroInfoSerializer
 
-from booktest.models import BookInfo
-from booktest.serializers import BookInfoSerializer
+# Create your views here.
 
 
 class BookListVIew(View):
@@ -142,11 +136,39 @@ class BookDetailView(View):
 class BookInfoViewSet(ModelViewSet):
     """定义视图集"""
 
+    # 指定序列化器
+    serializer_class = BookInfoModelSerializer
+    # 指定查询
     queryset = BookInfo.objects.all()
-    serializer_class = BookInfoSerializer
 
-
-def demo():
-    book = BookInfo.objects.get(id=1)
-    serializer = BookInfoSerializer(instance=book)
-    serializer.data
+#
+# # def demo():
+# #     book = BookInfo.objects.get(id=1)
+# #     serializer = BookInfoSerializer(instance=book)
+# #     serializer.data
+#
+# #序列化查询集QuerySet
+# book_qs = BookInfo.objects.all()
+# serializer = BookInfoSerializer(book_qs, many=True)
+# serializer.data
+#
+# # 有BUG
+# # book_qs = BookInfo.objects.all()
+# # serializer = BookInfoSerializer({"books":book_qs})
+# # serializer.books
+#
+#
+#
+# # 关联序列化
+# hero = HeroInfo.objects.all()
+#
+#
+# # 反序列化演练
+# data = {
+#     "btitle": "三国Django",
+#     "bread": 20,
+#     "bcomment": 19,
+# }
+# serializer = BookInfoSerializer(data=data)
+# serializer.is_valid(raise_exception=True)
+#

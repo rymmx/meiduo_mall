@@ -8,6 +8,7 @@ urlpatterns = [
 ]
 
 
+# 创建路由器
 router = DefaultRouter()
 router.register(r'books', views.BookInfoViewSet)
 urlpatterns += router.urls
