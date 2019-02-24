@@ -126,6 +126,7 @@ from .serializers import BookInfoModelSerializer
 #         return Response(serializer.data)
 #
 
+
 """
 利用: ModelViewSet视图集实现查询单一和所有数据接口
 """
@@ -135,10 +136,18 @@ class BookViewSet(ModelViewSet):
     # 指定查询集
     queryset = BookInfo.objects.all()
 
-
+    # /books/latest/
     def latest(self, request):
         """获取最后一本图书"""
         book = BookInfo.objects.latest('id')
         serializer = self.get_serializer(book)
         return Response(serializer.data)
 
+    # /books/pk/update_read/
+    def update_read(self, request, pk):
+        """修改图书的阅读量"""
+        book = self.get_object()
+        book.bread = request.data.get('bread')
+        book.save()
+        serializer = self.get_serializer(book)
+        return Response(serializer.data)

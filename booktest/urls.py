@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^books/(?P<pk>\d+)/$', views.BookViewSet.as_view({'get': 'retrieve'})),
 
     url(r'^books/latest/$', views.BookViewSet.as_view({'get': 'latest'})),
-
+    url(r'^books/(?P<pk>\d+)/update_read/$', views.BookViewSet.as_view({'put': 'update_read'})),
 
 ]
 
