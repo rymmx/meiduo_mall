@@ -3,13 +3,13 @@ from rest_framework import serializers
 from booktest.models import BookInfo
 
 
-# class BookInfoModelSerializer(serializers.ModelSerializer):
-#     """定义序列化器"""
-#
-#
-#     class Meta:
-#         model = BookInfo
-#         fields = '__all__'
+class BookInfoModelSerializer(serializers.ModelSerializer):
+    """定义序列化器"""
+
+
+    class Meta:
+        model = BookInfo
+        fields = '__all__'
 
 
 class HeroInfoSerializer(serializers.Serializer):
@@ -92,22 +92,22 @@ ModelSerializer 模型序列化器
 """
 
 
-class BookInfoModelSerializer(serializers.ModelSerializer):
-    """book模型序列化器"""
-
-    # abc = serializers.CharField()
-
-    class Meta:
-        model = BookInfo  # 序列化器自动生成序列化器中字段时从那个模型中映射
-        # fields = '__all__'  # 把BookInfo模型中的字段全部映射过来
-        # fields = ['id', 'btitle', 'bpub_date', 'abc']  # 生成指定的字段
-
-        exclude = ['image']  # 除了指定的字段不映射,其他全部映射
-
-        #如果对ModelSerializer自动生成的字段选项不满意,可以在下面这个字典中,修改字段选项
-        extra_kwargs = {
-            'bread': {'min_value': 0},
-            'bcomment': {'min_value': 0},
-            'is_delete': {'write_only': True}
-        }
-        read_only_fields = ['bread', 'bcomment']  # 修改那些字段为只做序列化输出
+# class BookInfoModelSerializer(serializers.ModelSerializer):
+#     """book模型序列化器"""
+#
+#     # abc = serializers.CharField()
+#
+#     class Meta:
+#         model = BookInfo  # 序列化器自动生成序列化器中字段时从那个模型中映射
+#         # fields = '__all__'  # 把BookInfo模型中的字段全部映射过来
+#         # fields = ['id', 'btitle', 'bpub_date', 'abc']  # 生成指定的字段
+#
+#         exclude = ['image']  # 除了指定的字段不映射,其他全部映射
+#
+#         #如果对ModelSerializer自动生成的字段选项不满意,可以在下面这个字典中,修改字段选项
+#         extra_kwargs = {
+#             'bread': {'min_value': 0},
+#             'bcomment': {'min_value': 0},
+#             'is_delete': {'write_only': True}
+#         }
+#         read_only_fields = ['bread', 'bcomment']  # 修改那些字段为只做序列化输出
