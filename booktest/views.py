@@ -135,3 +135,10 @@ class BookViewSet(ModelViewSet):
     # 指定查询集
     queryset = BookInfo.objects.all()
 
+
+    def latest(self, request):
+        """获取最后一本图书"""
+        book = BookInfo.objects.latest('id')
+        serializer = self.get_serializer(book)
+        return Response(serializer.data)
+

@@ -8,6 +8,9 @@ urlpatterns = [
     url(r'^books/$',views.BookViewSet.as_view({'get':'list', 'post':'create'})),
     url(r'^books/(?P<pk>\d+)/$', views.BookViewSet.as_view({'get': 'retrieve'})),
 
+    url(r'^books/latest/$', views.BookViewSet.as_view({'get': 'latest'})),
+
+
 ]
 
 
