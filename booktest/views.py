@@ -1,7 +1,9 @@
-from rest_framework.generics import GenericAPIView
+from rest_framework import status
+from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveAPIView
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.viewsets import ViewSet, ModelViewSet
 
 from .models import BookInfo
 from .serializers import BookInfoModelSerializer
@@ -43,42 +45,93 @@ from .serializers import BookInfoModelSerializer
 #         return Response(serializer.data)
 
 
+# """
+# 利用:GenericAPIView + mixins扩展来实现获取所有图书和单一图书接口
+# """
+# class BookListView(CreateModelMixin, ListModelMixin, GenericAPIView):
+#     """列表视图"""
+#     # 1.指定序列化器类
+#     serializer_class = BookInfoModelSerializer
+#     # 2.指定查询集
+#     queryset = BookInfo.objects.all()
+#
+#     def get(self, request):
+#         # # 1. 获取查询集
+#         # qs = self.get_queryset()
+#         # # 2. 创建序列化器对象进行序列化操作
+#         # serializer = self.get_serializer(qs, many=True)
+#         # # 3. 响应
+#         # return Response(serializer.data)
+#         return self.list(request)
+#
+#     def post(self, request):
+#         return self.create(request)
+#
+#
+# class BookDetailView(RetrieveModelMixin, GenericAPIView):
+#
+#     # 1.指定序列化器类
+#     serializer_class = BookInfoModelSerializer
+#     # 2.指定查询集
+#     queryset = BookInfo.objects.all()
+#
+#     """详情视图"""
+#     def get(self, request, pk):
+#         # # 1. 获取到要查询的模型对象
+#         # book = self.get_object()
+#         # # 2. 创建序列化器进行序列化
+#         # serializer = self.get_serializer(book)
+#         # # 3. 响应
+#         # return Response(serializer.data)
+#         return self.retrieve(request)
+
+
+
 """
-利用:GenericAPIView + mixins扩展来实现获取所有图书和单一图书接口
+利用:GenericAPIView + mixins 的合成来形成标准接口
 """
-class BookListView(CreateModelMixin, ListModelMixin, GenericAPIView):
-    """列表视图"""
-    # 1.指定序列化器类
+# class BookListView(ListCreateAPIView):
+#     """列表视图"""
+#     # 1.指定序列化器类
+#     serializer_class = BookInfoModelSerializer
+#     # 2.指定查询集
+#     queryset = BookInfo.objects.all()
+#
+#
+# class BookDetailView(RetrieveAPIView):
+#     """详情视图"""
+#     # 1.指定序列化器类
+#     serializer_class = BookInfoModelSerializer
+#     # 2.指定查询集
+#     queryset = BookInfo.objects.all()
+
+
+"""
+利用: ViewSet视图集实现查询单一和所有数据接口
+"""
+# class BookViewSet(ViewSet):
+#
+#     def list(self, request):
+#         qs = BookInfo.objects.all()
+#         serializer = BookInfoModelSerializer(qs, many=True)
+#         return Response(serializer.data)
+#
+#     def retrieve(self, request, pk):
+#         try:
+#             book = BookInfo.objects.get(id=pk)
+#         except BookInfo.DoesNotExist:
+#             return Response(status=status.HTTP_404_NOT_FOUND)
+#
+#         serializer = BookInfoModelSerializer(book)
+#         return Response(serializer.data)
+#
+
+"""
+利用: ModelViewSet视图集实现查询单一和所有数据接口
+"""
+class BookViewSet(ModelViewSet):
+    # 指定序列化器
     serializer_class = BookInfoModelSerializer
-    # 2.指定查询集
+    # 指定查询集
     queryset = BookInfo.objects.all()
 
-    def get(self, request):
-        # # 1. 获取查询集
-        # qs = self.get_queryset()
-        # # 2. 创建序列化器对象进行序列化操作
-        # serializer = self.get_serializer(qs, many=True)
-        # # 3. 响应
-        # return Response(serializer.data)
-        return self.list(request)
-
-    def post(self, request):
-        return self.create(request)
-
-
-class BookDetailView(RetrieveModelMixin, GenericAPIView):
-
-    # 1.指定序列化器类
-    serializer_class = BookInfoModelSerializer
-    # 2.指定查询集
-    queryset = BookInfo.objects.all()
-
-    """详情视图"""
-    def get(self, request, pk):
-        # # 1. 获取到要查询的模型对象
-        # book = self.get_object()
-        # # 2. 创建序列化器进行序列化
-        # serializer = self.get_serializer(book)
-        # # 3. 响应
-        # return Response(serializer.data)
-        return self.retrieve(request)
