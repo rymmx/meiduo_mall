@@ -1,4 +1,5 @@
 from rest_framework import status
+from rest_framework.decorators import action
 from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveAPIView
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin
 from rest_framework.views import APIView
@@ -137,6 +138,7 @@ class BookViewSet(ModelViewSet):
     queryset = BookInfo.objects.all()
 
     # /books/latest/
+    @action(methods=['get'], detail=False)
     def latest(self, request):
         """获取最后一本图书"""
         book = BookInfo.objects.latest('id')
@@ -144,6 +146,7 @@ class BookViewSet(ModelViewSet):
         return Response(serializer.data)
 
     # /books/pk/update_read/
+    @action(methods=['put'], detail=True)
     def update_read(self, request, pk):
         """修改图书的阅读量"""
         book = self.get_object()
