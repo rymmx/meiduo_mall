@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveAPIView
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet, ModelViewSet
@@ -136,6 +137,20 @@ class BookViewSet(ModelViewSet):
     serializer_class = BookInfoModelSerializer
     # 指定查询集
     queryset = BookInfo.objects.all()
+
+    """
+    AllowAny 允许所有用户
+    IsAuthenticated 仅通过认证的用户
+    IsAdminUser 仅管理员用户
+    IsAuthenticatedOrReadOnly 认证的用户可以完全操作，否则只能get读取
+    """
+
+    # IsAuthenticated 表示只有通过认证(登录用户)的用户才能访问此类视图中的所有接口
+    permission_classes = [IsAuthenticatedOrReadOnly]  # The request is authenticated as a user, or is a read-only request.
+    # permission_classes = [IsAdminUser]  # Allows access only to admin users.
+    # permission_classes = [IsAuthenticated]  # Allows access only to authenticated users.
+
+
 
     # /books/latest/
     @action(methods=['get'], detail=False)

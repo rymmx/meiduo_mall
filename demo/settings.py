@@ -184,3 +184,12 @@ SESSION_CACHE_ALIAS = "default"
 
 # 指定上传文件目录
 MEDIA_ROOT = os.path.join(BASE_DIR,"static_files/media")
+
+# REST_FRAMEWORK 此变量中写DRF框架的所有配置
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (  # 配置全局的认证类
+        'rest_framework.authentication.BasicAuthentication',   # 基本认证
+        'rest_framework.authentication.SessionAuthentication',  # session认证
+    ),
+
+}

@@ -24,7 +24,7 @@ urlpatterns += router.urls  # 把路由器生成好的路由追加到路由列�
 # # urlpatterns = urlpatterns + router.urls
 
 
-print(router.urls)
+# print(router.urls)
 
 """
 [<RegexURLPattern bookinfo-list ^books/$>, 
