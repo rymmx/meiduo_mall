@@ -138,6 +138,9 @@ class BookViewSet(ModelViewSet):
     # 指定查询集
     queryset = BookInfo.objects.all()
 
+    # 指定过滤字段
+    filter_fields = ('btitle', 'bread')
+
     """
     AllowAny 允许所有用户
     IsAuthenticated 仅通过认证的用户
@@ -169,3 +172,37 @@ class BookViewSet(ModelViewSet):
         book.save()
         serializer = self.get_serializer(book)
         return Response(serializer.data)
+
+
+# class BookListView(APIView):
+#
+#     def get(self, request):
+#         qs = BookInfo.objects.all()
+#         serializer = BookInfoModelSerializer(qs, many=True)
+#         return Response(serializer.data)
+#
+#     def post(self, request):
+#         data = request.data
+#         serializer = BookInfoModelSerializer(data=data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+
+
+# class BookDetailView(APIView):
+#
+#     def put(self, request, pk):
+#
+#         try:
+#             book = BookInfo.objects.get(id=pk)
+#         except BookInfo.DoesNotExist:
+#             return Response(status=status.HTTP_404_NOT_FOUND)
+#         data =request.data
+#         serializer = BookInfoModelSerializer(instance=book, data=data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+#
+#     def delete(self, request, pk):
+#         pass
+

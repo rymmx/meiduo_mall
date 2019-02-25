@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     # 添加rest_framework应用
     'rest_framework',
 
+    'django_filters',  # 过滤器
+
     'users.apps.UsersConfig',  # 注册子应用
     'request_response.apps.RequestResponseConfig',  # 演示请求和响应子应用
     'booktest.apps.BooktestConfig',  # 注册booktest应用
@@ -191,5 +193,16 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',   # 基本认证
         'rest_framework.authentication.SessionAuthentication',  # session认证
     ),
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',  # 匿名用户限流
+        'rest_framework.throttling.UserRateThrottle'  # 登陆用户限流
+    ),
+    'DEFAULT_THROTTLE_RATES': {  # 使用 second, minute, hour 或day来指明周期
+        'anon': '30/minute',  # 匿名用户限流  每分钟3次
+        'user': '50/minute'  # 登陆用户限流  每分钟5次
+    },
+
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+
 
 }
