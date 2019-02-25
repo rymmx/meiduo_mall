@@ -1,5 +1,7 @@
+
 from rest_framework import status
 from rest_framework.decorators import action
+from rest_framework.filters import OrderingFilter
 from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveAPIView
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
@@ -139,7 +141,12 @@ class BookViewSet(ModelViewSet):
     queryset = BookInfo.objects.all()
 
     # 指定过滤字段
-    filter_fields = ('btitle', 'bread')
+    filter_fields = ('id', 'btitle', 'bread')
+
+    # 查询方式: http://127.0.0.1:8000/books/?ordering=-id
+    filter_backends = [OrderingFilter]  # 指定过滤后端
+    # ordering_fields = ['id', 'bread']  # 指定排序字段
+    ordering_fields = ('id', 'bread', 'bpub_date')
 
     """
     AllowAny 允许所有用户
